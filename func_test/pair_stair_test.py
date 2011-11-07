@@ -16,17 +16,14 @@ class TestPairStair(unittest.TestCase):
         self.driver.get('http://localhost:8000:/addProgrammer')
         self.assertEqual(self.driver.title, 'Add Programmer')
 
-
-        programmer1_name = "Wang Qian"
-        programmer2_name = "Huan Huan"
-        self.add_programmer(programmer1_name)
-        self.add_programmer(programmer2_name)
+        self.add_programmer("Wang Qian")
+        self.add_programmer("Huan Huan")
 
         self.driver.get('http://localhost:8000:/pairStair')
         self.assertEqual(self.driver.title, 'Show PairStair')
 
         #TODO
-        #Show pair stair
+        #show pair stair
 
 
 

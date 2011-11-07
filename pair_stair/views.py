@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from pair_stair.models import Programmer
+from pair_stair.models import Programmer, Pair
 
 def add_programmer_index(request):
     if request.method == 'POST':
@@ -8,9 +8,20 @@ def add_programmer_index(request):
         add_programmer(programmer_name)
     return render_to_response("add_programmer.html", RequestContext(request))
 
+
 def add_programmer(programmer_name):
-    programmer = Programmer(name = programmer_name)
+    programmer = Programmer(name=programmer_name)
     programmer.save()
+    add_pairs()
+
+def add_pairs():
+    number_of_programmers = Programmer.objects.count()
+    for index_of_programmer in range(number_of_programmers - 1):
+        if not number_of_programmers == 1:
+            pair = Pair(programmer1=Programmer.objects.all()[number_of_programmers - 1],
+                        programmer2=Programmer.objects.all()[index_of_programmer], count=0)
+            pair.save()
+
 
 def pair_stair_index(request):
     return render_to_response("pairStair.html", RequestContext(request))
