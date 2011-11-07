@@ -16,3 +16,21 @@ class TestAddProgrammer(test.TestCase):
         current_num_of_programmers = Programmer.objects.count()
         self.assertEqual(current_num_of_programmers - previous_num_of_programmers, 1)
         self.assertIn(Programmer.objects.get(name = programmer1_name), Programmer.objects.all())
+
+    def test_add_programmer_from_page(self):
+
+        previous_num_of_programmers = Programmer.objects.count()
+
+        programmer_name = "Wang Qian"
+        Client().post("/addProgrammer/", {"programmer_name_tb": programmer_name})
+
+        current_num_of_programmers = Programmer.objects.count()
+
+        self.assertEqual(current_num_of_programmers - previous_num_of_programmers, 1)
+        self.assertIn(Programmer.objects.get(name = programmer_name), Programmer.objects.all())
+
+
+    def test_got_to_add_programmer_page(self):
+        response = Client().get("/pairStair/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'pairStair.html')
