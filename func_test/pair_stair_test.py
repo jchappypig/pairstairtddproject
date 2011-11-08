@@ -27,6 +27,13 @@ class TestPairStair(unittest.TestCase):
         self.assertEqual(4, len(self.driver.find_elements(By.CSS_SELECTOR, '.name')))
         self.assertEqual(1, len(self.driver.find_elements(By.CSS_SELECTOR, '.pair_count')))
 
+    def test_mark_pair(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get('http://localhost:8000:/addProgrammer')
+        self.add_programmer("Wang Qian")
+        self.add_programmer("Huan Huan")
+
+        self.driver.get('http://localhost:8000:/pairStair')
         mark_pair_link = self.driver.find_element(By.CSS_SELECTOR, '.pair_count')
         self.assertEqual('0', mark_pair_link.text)
 
