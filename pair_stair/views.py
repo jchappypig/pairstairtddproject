@@ -24,4 +24,7 @@ def add_pairs():
 
 
 def pair_stair_index(request):
-    return render_to_response("pairStair.html", RequestContext(request))
+
+    programmers = Programmer.objects.all()
+    pairs = Pair.objects.all()
+    return render_to_response("pairStair.html", {'programmers':programmers, 'pairs':pairs})

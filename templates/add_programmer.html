@@ -5,10 +5,11 @@
     <title>Add Programmer</title>
 </head>
 <body>
-    <form action="/addProgrammer">
+    <form action="/addProgrammer/" method="POST">
+    {% csrf_token %}
         Name:
-        <input id="programmer_name_tb">
-        <button id="add_programmer_btn">add</button>
+        <input id="programmer_name_tb" name="programmer_name_tb">
+        <button id="add_programmer_btn" name="add_programmer_btn">add</button>
     </form>
 </body>
 </html>

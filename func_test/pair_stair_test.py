@@ -1,6 +1,7 @@
 from selenium import webdriver
 
 import unittest
+from selenium.webdriver.common.by import By
 
 class TestPairStair(unittest.TestCase):
 
@@ -22,15 +23,10 @@ class TestPairStair(unittest.TestCase):
         self.driver.get('http://localhost:8000:/pairStair')
         self.assertEqual(self.driver.title, 'Show PairStair')
 
-        #TODO
-        #show pair stair
-
-
-
-
-
-
-
+        self.assertEqual(2, len(self.driver.find_elements(By.CSS_SELECTOR, '.name')))
+        self.assertEqual('Wang Qian', self.driver.find_element(By.CSS_SELECTOR, '.column:nth-of-type(1n) .name').text)
+        self.assertEqual('Huan Huan', self.driver.find_element(By.CSS_SELECTOR, '.row:nth-of-type(1n) .name').text)
+        self.assertEqual(1, len(self.driver.find_elements(By.CSS_SELECTOR, '.row:nth-of-type(1n) .pair_count a')))
 
     def tearDown(self):
         self.driver.close()

@@ -9,7 +9,7 @@ class TestAddProgrammer(test.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'add_programmer.html')
 
-    def test_add_programmer(self):
+    def test_add_one_programmer(self):
         previous_num_of_programmers = Programmer.objects.count()
 
         programmer1_name = "Wang Qian"
@@ -43,6 +43,10 @@ class TestAddProgrammer(test.TestCase):
 
         self.assertEqual(current_num_of_programmers - previous_num_of_programmers, 1)
         self.assertIn(Programmer.objects.get(name = programmer_name), Programmer.objects.all())
+
+    def test_should_redirect_to_add_programmer_page_after_add_programmer(self):
+        response = Client().post("/addProgrammer/", {'programmer_name_tb':'Huan Huan'})
+        self.assertEqual(response.status_code, 200)
 
 
     def test_got_to_pair_stair_page(self):
