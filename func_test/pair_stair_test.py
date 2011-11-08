@@ -1,4 +1,3 @@
-from meld3.example import element
 from selenium import webdriver
 
 import unittest
@@ -11,7 +10,6 @@ class TestPairStair(unittest.TestCase):
         programmer_name_textbox.send_keys(programmer_name)
         submit_button = self.driver.find_element_by_id('add_programmer_btn')
         submit_button.click()
-
 
     def test_create_pair_stair_table(self):
         self.driver = webdriver.Chrome()
@@ -53,12 +51,9 @@ class TestPairStair(unittest.TestCase):
         pair_stair_link.click()
         self.assertEqual(self.driver.title, 'Show PairStair')
 
-    def test_indicate_not_enough_programmer_on_pair_stair_page_with_one_programmer(self):
+    def test_indicate_not_enough_programmer_to_do_pairing(self):
         self.driver = webdriver.Chrome()
         self.driver.get('http://localhost:8000:/removeAllProgrammers')
-        self.driver.get('http://localhost:8000:/addProgrammer')
-        self.add_programmer("Wang Qian")
-        
         self.driver.get('http://localhost:8000:/pairStair')
         try:
             self.driver.find_element_by_id('no_programmer_msg')
@@ -66,9 +61,9 @@ class TestPairStair(unittest.TestCase):
         except NoSuchElementException:
             self.fail('Unexpected exception thrown: NoSuchElementException')
 
-    def test_indicate_not_enough_programmer_on_pair_stair_page_with_no_programmer(self):
-        self.driver = webdriver.Chrome()
-        self.driver.get('http://localhost:8000:/removeAllProgrammers')
+        self.driver.get('http://localhost:8000:/addProgrammer')
+        self.add_programmer("Wang Qian")
+
         self.driver.get('http://localhost:8000:/pairStair')
         try:
             self.driver.find_element_by_id('no_programmer_msg')

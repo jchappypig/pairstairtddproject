@@ -14,6 +14,7 @@ def add_programmer(programmer_name):
     programmer.save()
     add_pairs()
 
+
 def add_pairs():
     number_of_programmers = Programmer.objects.count()
     for index_of_programmer in range(number_of_programmers - 1):
@@ -22,19 +23,21 @@ def add_pairs():
                         programmer2=Programmer.objects.all()[index_of_programmer], count=0)
             pair.save()
 
-def pair_stair_index(request):
 
+def pair_stair_index(request):
     programmers = Programmer.objects.all()
     pairs = Pair.objects.all()
-    return render_to_response("pairStair.html", {'programmers':programmers, 'pairs':pairs})
+    return render_to_response("pairStair.html", {'programmers': programmers, 'pairs': pairs})
+
 
 def remove_programmers_index(request):
     Programmer.objects.all().delete()
-    return render_to_response("remove_all_programmers.html",RequestContext(request))
+    return render_to_response("remove_all_programmers.html", RequestContext(request))
 
 
 def mark_pair(request, programmer1_id, programmer2_id):
-    pair = Pair.objects.get(programmer1=Programmer.objects.get(id=programmer1_id), programmer2=Programmer.objects.get(id=programmer2_id))
+    pair = Pair.objects.get(programmer1=Programmer.objects.get(id=programmer1_id),
+                            programmer2=Programmer.objects.get(id=programmer2_id))
     pair.count += 1
     pair.save()
     return pair_stair_index(request)
