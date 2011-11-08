@@ -4,7 +4,6 @@ import unittest
 from selenium.webdriver.common.by import By
 
 class TestPairStair(unittest.TestCase):
-
     def add_programmer(self, programmer_name):
         programmer_name_textbox = self.driver.find_element_by_id('programmer_name_tb')
         programmer_name_textbox.send_keys(programmer_name)
@@ -26,10 +25,18 @@ class TestPairStair(unittest.TestCase):
         self.assertEqual(4, len(self.driver.find_elements(By.CSS_SELECTOR, '.name')))
         self.assertEqual(1, len(self.driver.find_elements(By.CSS_SELECTOR, '.pair_count')))
 
-        #TODO add function to mark pairs
-        self.assertEqual('0', self.driver.find_element(By.CSS_SELECTOR, '.pair_count').text)
+        mark_pair_link = self.driver.find_element(By.CSS_SELECTOR, '.pair_count')
+        self.assertEqual('0', mark_pair_link.text)
+
+        mark_pair_link.click()
+        self.assertEqual(self.driver.title, 'Show PairStair')
+
+        mark_pair_link = self.driver.find_element(By.CSS_SELECTOR, '.pair_count')
+        self.assertEqual('1', mark_pair_link.text)
+
 
     def tearDown(self):
+        self.driver.get('http://localhost:8000:/removeAllProgrammers')
         self.driver.close()
 
 
