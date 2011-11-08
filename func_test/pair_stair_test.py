@@ -46,7 +46,20 @@ class TestPairStair(unittest.TestCase):
         pair_stair_link.click()
         self.assertEqual(self.driver.title, 'Show PairStair')
 
-    def test_indicate_no_programmer_on_pair_stair_page(self):
+    def test_indicate_not_enough_programmer_on_pair_stair_page_with_one_programmer(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get('http://localhost:8000:/removeAllProgrammers')
+        self.driver.get('http://localhost:8000:/addProgrammer')
+        self.add_programmer("Wang Qian")
+        
+        self.driver.get('http://localhost:8000:/pairStair')
+        try:
+            self.driver.find_element_by_id('no_programmer_msg')
+            pass
+        except NoSuchElementException:
+            self.fail('Unexpected exception thrown: NoSuchElementException')
+
+    def test_indicate_not_enough_programmer_on_pair_stair_page_with_no_programmer(self):
         self.driver = webdriver.Chrome()
         self.driver.get('http://localhost:8000:/removeAllProgrammers')
         self.driver.get('http://localhost:8000:/pairStair')

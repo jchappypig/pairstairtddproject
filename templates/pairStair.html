@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Show PairStair</title>
+</head>
+<body>
+{% if programmers.count > 1 %}
+<table border="1">
+    <tr>
+        <td></td>
+        {% for programmer in programmers %}
+            <td>
+                <span class='name'>{{ programmer.name }}</span>
+            </td>
+        {% endfor %}
+    </tr>
+    {% for programmer in programmers %}
+        <tr>
+            <td>
+                <span class='name'>{{ programmer.name }}</span>
+            </td>
+            {% for pair in pairs %}
+                {% if pair.programmer1 == programmer %}
+                    <td>
+                        <a href="/pairStair/{{ pair.programmer1_id }}/{{ pair.programmer2_id }}" class="pair_count">{{ pair.count }}</a>
+                    </td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% else %}
+    <div id="no_programmer_msg">Sorry, you haven't enough programmers to do pairing yet</div>
+{% endif %}
+
+<div><a href="/addProgrammer" id="add_programmer_link">Add Programmer</a></div>
+
+</body>
+</html>
