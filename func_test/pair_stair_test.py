@@ -23,10 +23,11 @@ class TestPairStair(unittest.TestCase):
         self.driver.get('http://localhost:8000:/pairStair')
         self.assertEqual(self.driver.title, 'Show PairStair')
 
-        self.assertEqual(2, len(self.driver.find_elements(By.CSS_SELECTOR, '.name')))
-        self.assertEqual('Wang Qian', self.driver.find_element(By.CSS_SELECTOR, '.column:nth-of-type(1n) .name').text)
-        self.assertEqual('Huan Huan', self.driver.find_element(By.CSS_SELECTOR, '.row:nth-of-type(1n) .name').text)
-        self.assertEqual(1, len(self.driver.find_elements(By.CSS_SELECTOR, '.row:nth-of-type(1n) .pair_count a')))
+        self.assertEqual(4, len(self.driver.find_elements(By.CSS_SELECTOR, '.name')))
+        self.assertEqual(1, len(self.driver.find_elements(By.CSS_SELECTOR, '.pair_count')))
+
+        #TODO add function to mark pairs
+        self.assertEqual('0', self.driver.find_element(By.CSS_SELECTOR, '.pair_count').text)
 
     def tearDown(self):
         self.driver.close()
