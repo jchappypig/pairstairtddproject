@@ -1,6 +1,8 @@
+from meld3.example import element
 from selenium import webdriver
 
 import unittest
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 class TestPairStair(unittest.TestCase):
@@ -34,6 +36,25 @@ class TestPairStair(unittest.TestCase):
         mark_pair_link = self.driver.find_element(By.CSS_SELECTOR, '.pair_count')
         self.assertEqual('1', mark_pair_link.text)
 
+    def test_navigate_between_add_programmer_page_and_pair_stair_page(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get('http://localhost:8000:/pairStair')
+        add_programmer_link = self.driver.find_element_by_id('add_programmer_link')
+        add_programmer_link.click()
+        self.assertEqual(self.driver.title, 'Add Programmer')
+        pair_stair_link = self.driver.find_element_by_id('pair_stair_link')
+        pair_stair_link.click()
+        self.assertEqual(self.driver.title, 'Show PairStair')
+
+    def test_indicate_no_programmer_on_pair_stair_page(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get('http://localhost:8000:/removeAllProgrammers')
+        self.driver.get('http://localhost:8000:/pairStair')
+        try:
+            self.driver.find_element_by_id('no_programmer_msg')
+            pass
+        except NoSuchElementException:
+            self.fail('Unexpected exception thrown: NoSuchElementException')
 
     def tearDown(self):
         self.driver.get('http://localhost:8000:/removeAllProgrammers')
